@@ -3,6 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AddressModule } from './modules/address/address.module';
+import { CityModule } from './modules/city/city.module';
+import { StateModule } from './modules/state/state.module';
 
 @Module({
   imports: [
@@ -17,9 +20,12 @@ import { AppService } from './app.service';
       password: process.env.DATABASE_PASSWORD,
       username: process.env.DATABASE_USER,
       entities: [`${__dirname}/**/*.entity{.js,.ts}`],
-      migrations: [`${__dirname}/migration/{.ts,*.js}`],
+      migrations: [`${__dirname}/database/migration/{.ts,*.js}`],
       migrationsRun: true,
     }),
+    AddressModule,
+    CityModule,
+    StateModule,
   ],
   controllers: [AppController],
   providers: [AppService],
