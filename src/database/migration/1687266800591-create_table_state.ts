@@ -8,14 +8,19 @@ export class CreateTableState1687266811432 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'varchar',
             isPrimary: true,
-            isUnique: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
             type: 'varchar',
+          },
+          {
+            name: 'active',
+            type: 'bool',
+            default: false,
           },
           {
             name: 'created_at',

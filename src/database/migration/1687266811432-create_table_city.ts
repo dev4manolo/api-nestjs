@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateTableCity1687266815797 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -13,10 +8,10 @@ export class CreateTableCity1687266815797 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'varchar',
             isPrimary: true,
-            isUnique: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'state_id',
@@ -25,6 +20,10 @@ export class CreateTableCity1687266815797 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
+          },
+          {
+            name: 'active',
+            type: 'bool',
           },
           {
             name: 'created_at',
@@ -41,19 +40,19 @@ export class CreateTableCity1687266815797 implements MigrationInterface {
       true,
     );
 
-    await queryRunner.createForeignKey(
-      'city',
-      new TableForeignKey({
-        columnNames: ['state_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'state',
-        onDelete: 'CASCADE',
-      }),
-    );
+    // await queryRunner.createForeignKey(
+    //   'city',
+    //   new TableForeignKey({
+    //     columnNames: ['state_id'],
+    //     referencedColumnNames: ['id'],
+    //     referencedTableName: 'state',
+    //     onDelete: 'CASCADE',
+    //   }),
+    // );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.query(`
+    await queryRunner.query(`
         drop table public.city;
     `);
   }
