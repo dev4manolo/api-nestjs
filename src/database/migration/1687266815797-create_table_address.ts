@@ -11,7 +11,7 @@ export class CreateTableAddress1687266800591 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+            // default: 'uuid_generate_v4()',
           },
           {
             name: 'city_id',
@@ -46,6 +46,11 @@ export class CreateTableAddress1687266800591 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
           },
         ],
       }),

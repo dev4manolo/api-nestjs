@@ -11,7 +11,7 @@ export class CreateTableCity1687266815797 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
+            // default: 'uuid_generate_v4()',
           },
           {
             name: 'state_id',
@@ -34,6 +34,11 @@ export class CreateTableCity1687266815797 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
+          },
+          {
+            name: 'deleted_at',
+            type: 'timestamp',
+            isNullable: true,
           },
         ],
       }),

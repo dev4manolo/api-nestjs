@@ -10,13 +10,16 @@ export class StateEntity {
   name: string;
 
   @Column({ name: 'active', nullable: false })
-  active: boolean;
+  active?: boolean;
 
   @Column({ name: 'created_at' })
   createdAt: Date;
 
   @Column({ name: 'updated_at' })
   updatedAt: Date;
+
+  @Column({ name: 'deleted_at' })
+  deletedAt?: Date;
 
   @OneToMany(() => CityEntity, (city) => city.state)
   cities?: CityEntity[];

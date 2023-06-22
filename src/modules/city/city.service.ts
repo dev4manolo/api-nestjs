@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'node:crypto';
 import { Repository } from 'typeorm';
 import { CreateCityDto } from './dtos/createCity.dto';
 import { CityEntity } from './entities/city.entity';
@@ -11,10 +12,13 @@ export class CityService {
     private readonly cityRepositoty: Repository<CityEntity>,
   ) {}
 
-  async creatCity(createCityDto: CreateCityDto): Promise<CityEntity> {
-    return this.cityRepositoty.save({
+  async createCity(createCityDto: CreateCityDto): Promise<CityEntity> {
+    const city = await this.cityRepositoty.save({
+      id: randomUUID(),
       ...createCityDto,
     });
+
+    return city;
   }
 
   async getAllcities(): Promise<CityEntity[]> {
@@ -38,10 +42,28 @@ export class CityService {
     return this.cityRepositoty.update(id, createCityDto);
   }
 
+  async deleteCity(id: string): Promise<any> {
+    return this.cityRepositoty.update(id, { active: false });
+  }
+
   async findCityById(cityId: string): Promise<CityEntity> {
     const city = await this.cityRepositoty.findOne({
       where: {
         id: cityId,
+      },
+    });
+
+    if (!city) {
+      throw new NotFoundException(`City Not Found`);
+    }
+
+    return city;
+  }
+
+  async findCityByName(name: string): Promise<CityEntity> {
+    const city = await this.cityRepositoty.findOne({
+      where: {
+        name: name,
       },
     });
 

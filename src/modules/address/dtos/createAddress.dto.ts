@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsOptional, IsString } from 'class-validator';
+import { CityEntity } from 'src/modules/city/entities/city.entity';
+import { StateEntity } from 'src/modules/state/entities/state.entity';
 
 export class CreateAddressDto {
   @ApiProperty()
@@ -19,7 +21,16 @@ export class CreateAddressDto {
   @IsString()
   cep: string;
 
+  @IsOptional()
   @ApiProperty()
   @IsString()
-  cityId: string;
+  cityId?: string;
+
+  @IsOptional()
+  @ApiProperty()
+  state?: StateEntity;
+
+  @IsOptional()
+  @ApiProperty()
+  city?: CityEntity;
 }

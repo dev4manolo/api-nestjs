@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'node:crypto';
 import { Repository } from 'typeorm';
 import { CreateStateDto } from './dtos/createState.dto';
 import { StateEntity } from './entities/state.entity';
@@ -8,25 +9,26 @@ import { StateEntity } from './entities/state.entity';
 export class StateService {
   constructor(
     @InjectRepository(StateEntity)
-    private readonly cityRepositoty: Repository<StateEntity>,
+    private readonly stateRepositoty: Repository<StateEntity>,
   ) {}
 
-  async creatCity(createStateDto: CreateStateDto): Promise<StateEntity> {
-    return this.cityRepositoty.save({
+  async createState(createStateDto: CreateStateDto): Promise<StateEntity> {
+    return await this.stateRepositoty.save({
+      id: randomUUID(),
       ...createStateDto,
     });
   }
 
-  async getAllcities(): Promise<StateEntity[]> {
-    return this.cityRepositoty.find({
+  async getAllStates(): Promise<StateEntity[]> {
+    return await this.stateRepositoty.find({
       where: {
         active: true,
       },
     });
   }
 
-  async getCities(id: string): Promise<StateEntity> {
-    return this.cityRepositoty.findOne({
+  async getState(id: string): Promise<StateEntity> {
+    return await this.stateRepositoty.findOne({
       where: {
         id,
         active: true,
@@ -34,7 +36,46 @@ export class StateService {
     });
   }
 
-  async updateCity(id: string, CreateStateDto: CreateStateDto): Promise<any> {
-    return this.cityRepositoty.update(id, CreateStateDto);
+  async updateState(id: string, CreateStateDto: CreateStateDto): Promise<any> {
+    return await this.stateRepositoty.update(id, CreateStateDto);
+  }
+
+  async deleteState(id: string): Promise<any> {
+    const data = await this.findStateById(id);
+
+    if (!data?.active) throw new Error('Invalid State Id');
+
+    return await this.stateRepositoty.update(id, {
+      active: false,
+      deletedAt: new Date(),
+    });
+  }
+
+  async findStateByName(name: string): Promise<StateEntity> {
+    const city = await this.stateRepositoty.findOne({
+      where: {
+        name: name,
+      },
+    });
+
+    if (!city) {
+      throw new NotFoundException(`State Not Found`);
+    }
+
+    return city;
+  }
+
+  async findStateById(id: string): Promise<StateEntity> {
+    const city = await this.stateRepositoty.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!city) {
+      throw new NotFoundException(`State Not Found`);
+    }
+
+    return city;
   }
 }

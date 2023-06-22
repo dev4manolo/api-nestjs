@@ -15,19 +15,22 @@ export class CityEntity {
   id?: string;
 
   @Column({ name: 'state_id', nullable: false })
-  stateId: string;
+  stateId?: string;
 
   @Column({ name: 'name', nullable: false })
   name: string;
 
   @Column({ name: 'active', nullable: false })
-  active: boolean;
+  active?: boolean;
 
   @Column({ name: 'created_at' })
   createdAt: Date;
 
   @Column({ name: 'updated_at' })
   updatedAt: Date;
+
+  @Column({ name: 'deleted_at' })
+  deletedAt?: Date;
 
   @OneToMany(() => AddressEntity, (address) => address.city)
   addresses?: AddressEntity[];
