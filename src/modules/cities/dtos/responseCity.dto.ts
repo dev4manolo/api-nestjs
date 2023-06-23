@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ResponseStateDto } from '../../state/dtos/responseState.dto';
+import { ResponseStateDto } from '../../states/dtos/responseState.dto';
 import { CityEntity } from '../entities/city.entity';
 
 export class ResponseCityDto {

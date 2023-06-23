@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CityEntity } from '../../city/entities/city.entity';
+import { CityEntity } from '../../cities/entities/city.entity';
 
 @Entity({ name: 'address' })
 export class AddressEntity {
@@ -28,13 +28,16 @@ export class AddressEntity {
   cep: string;
 
   @Column({ name: 'active', nullable: false })
-  active: boolean;
+  active?: boolean;
 
   @Column({ name: 'created_at' })
   createdAt: Date;
 
   @Column({ name: 'updated_at' })
   updatedAt: Date;
+
+  @Column({ name: 'deleted_at' })
+  deletedAt?: Date;
 
   @ManyToOne(() => CityEntity, (address) => address.addresses)
   @JoinColumn({ name: 'city_id', referencedColumnName: 'id' })

@@ -19,7 +19,8 @@ export class CreateAddressDto {
   @IsString()
   cep: string;
 
+  @IsOptional()
   @ApiProperty()
   @IsString()
-  cityId: string;
+  cityId?: string;
 }

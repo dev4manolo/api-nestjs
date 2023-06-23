@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'node:crypto';
 import { Repository } from 'typeorm';
-import { CityService } from '../city/city.service';
 import { CreateAddressDto } from './dtos/createAddress.dto';
 import { AddressEntity } from './entities/address.entity';
 @Injectable()
@@ -9,23 +9,23 @@ export class AddressService {
   constructor(
     @InjectRepository(AddressEntity)
     private readonly addressrRepository: Repository<AddressEntity>,
-    private readonly cityService: CityService,
   ) {}
 
-  async createAddress(
-    createAddressDto: CreateAddressDto,
-  ): Promise<AddressEntity> {
-    return this.addressrRepository.save({
+  async createAddress(createAddressDto: CreateAddressDto): Promise<any> {
+    return await this.addressrRepository.save({
+      id: randomUUID(),
       ...createAddressDto,
     });
   }
 
-  async getAllAddress(): Promise<AddressEntity[]> {
-    return this.addressrRepository.find({
+  async getAllAddress(): Promise<any[]> {
+    const addresses = await this.addressrRepository.find({
       where: {
         active: true,
       },
     });
+
+    return addresses;
   }
 
   async getAddress(id: string): Promise<AddressEntity> {
@@ -45,6 +45,9 @@ export class AddressService {
   }
 
   async deleteAddress(id: string): Promise<any> {
-    return this.addressrRepository.update(id, { active: false });
+    return this.addressrRepository.update(id, {
+      active: false,
+      deletedAt: new Date(),
+    });
   }
 }

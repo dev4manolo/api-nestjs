@@ -6,8 +6,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AddressEntity } from '../../address/entities/address.entity';
-import { StateEntity } from '../../state/entities/state.entity';
+import { AddressEntity } from '../../addresses/entities/address.entity';
+import { StateEntity } from '../../states/entities/state.entity';
 
 @Entity({ name: 'city' })
 export class CityEntity {
@@ -15,19 +15,22 @@ export class CityEntity {
   id?: string;
 
   @Column({ name: 'state_id', nullable: false })
-  stateId: string;
+  stateId?: string;
 
   @Column({ name: 'name', nullable: false })
   name: string;
 
   @Column({ name: 'active', nullable: false })
-  active: boolean;
+  active?: boolean;
 
   @Column({ name: 'created_at' })
   createdAt: Date;
 
   @Column({ name: 'updated_at' })
   updatedAt: Date;
+
+  @Column({ name: 'deleted_at' })
+  deletedAt?: Date;
 
   @OneToMany(() => AddressEntity, (address) => address.city)
   addresses?: AddressEntity[];
