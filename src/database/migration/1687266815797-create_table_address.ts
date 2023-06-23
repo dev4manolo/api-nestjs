@@ -11,7 +11,7 @@ export class CreateTableAddress1687266800591 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
-            // default: 'uuid_generate_v4()',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'city_id',

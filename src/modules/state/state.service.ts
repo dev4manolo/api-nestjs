@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotAcceptableException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'node:crypto';
 import { Repository } from 'typeorm';
@@ -12,7 +16,15 @@ export class StateService {
     private readonly stateRepositoty: Repository<StateEntity>,
   ) {}
 
-  async createState(createStateDto: CreateStateDto): Promise<StateEntity> {
+  async createState(createStateDto: CreateStateDto): Promise<any> {
+    const existState = await this.stateRepositoty.findOne({
+      where: {
+        name: createStateDto?.name,
+      },
+    });
+
+    if (existState) throw new NotAcceptableException('State already exists');
+
     return await this.stateRepositoty.save({
       id: randomUUID(),
       ...createStateDto,

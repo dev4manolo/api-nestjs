@@ -11,7 +11,7 @@ export class CreateTableCity1687266815797 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
-            // default: 'uuid_generate_v4()',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'state_id',

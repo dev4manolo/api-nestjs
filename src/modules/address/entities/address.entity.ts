@@ -28,7 +28,7 @@ export class AddressEntity {
   cep: string;
 
   @Column({ name: 'active', nullable: false })
-  active: boolean;
+  active?: boolean;
 
   @Column({ name: 'created_at' })
   createdAt: Date;
