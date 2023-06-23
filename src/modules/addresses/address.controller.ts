@@ -16,8 +16,8 @@ import { Response } from 'express';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from './dtos/createAddress.dto';
 
-@Controller('address')
-@ApiTags('address')
+@Controller('addresses')
+@ApiTags('addresses')
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 

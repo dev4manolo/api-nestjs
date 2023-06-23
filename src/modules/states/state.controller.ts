@@ -16,8 +16,8 @@ import { Response } from 'express';
 import { CreateStateDto } from './dtos/createState.dto';
 import { StateService } from './state.service';
 
-@Controller('state')
-@ApiTags('state')
+@Controller('states')
+@ApiTags('states')
 export class StateController {
   constructor(private readonly stateService: StateService) {}
 

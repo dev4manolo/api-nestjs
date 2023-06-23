@@ -16,32 +16,32 @@ import { Response } from 'express';
 import { CityService } from './city.service';
 import { CreateCityDto } from './dtos/createCity.dto';
 
-@Controller('city')
-@ApiTags('city')
+@Controller('citis')
+@ApiTags('cities')
 export class CityController {
   constructor(private readonly cityService: CityService) {}
 
   @Post()
   @UsePipes(ValidationPipe)
-  async createAddress(@Body() createCityDto: CreateCityDto) {
+  async createCities(@Body() createCityDto: CreateCityDto) {
     try {
       return this.cityService.createCity(createCityDto);
     } catch (error) {
       throw new BadRequestException(
-        `Error get the address ${JSON.stringify(error)}`,
+        `Error get the Cities ${JSON.stringify(error)}`,
       );
     }
   }
 
   @Get()
   @UsePipes(ValidationPipe)
-  async getAllAddress(@Res() res: Response) {
+  async getAllCities(@Res() res: Response) {
     try {
       const data = await this.cityService.getAllcities();
       return res.status(200).json({ message: 'Ok', data });
     } catch (error) {
       throw new BadRequestException(
-        `Error get the address ${JSON.stringify(error)}`,
+        `Error get the Cities ${JSON.stringify(error)}`,
       );
     }
   }

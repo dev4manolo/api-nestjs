@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AddressModule } from './modules/address/address.module';
-import { CityModule } from './modules/city/city.module';
-import { StateModule } from './modules/state/state.module';
+import { AddressModule } from './modules/addresses/address.module';
+import { CityModule } from './modules/cities/city.module';
+import { StateModule } from './modules/states/state.module';
 
 @Module({
   imports: [
