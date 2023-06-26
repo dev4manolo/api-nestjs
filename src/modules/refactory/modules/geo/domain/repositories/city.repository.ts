@@ -2,6 +2,8 @@ import { CityEntity } from '../entities/city.entity';
 
 export interface ICityRepository {
   save(input: ICityRepository.Save): Promise<void>;
+  findOne(input: ICityRepository.Find): Promise<CityEntity>;
+  find(input?: ICityRepository.Find): Promise<CityEntity[]>;
 }
 
 export namespace ICityRepository {
@@ -12,4 +14,5 @@ export namespace ICityRepository {
   };
 
   export type Save = CityEntity;
+  export type Find = Partial<Properties>;
 }

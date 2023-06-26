@@ -4,7 +4,7 @@ import { AddressEntity } from '../entities/address.entity';
 export class ResponseAddressDto {
   street: string;
   complement: string;
-  number: number;
+  number: string;
   cep: string;
   city?: ResponseCityDto;
 

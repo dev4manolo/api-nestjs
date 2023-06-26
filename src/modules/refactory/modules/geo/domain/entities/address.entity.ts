@@ -5,8 +5,6 @@ export class AddressEntity {
   private number: string;
   private complement: string;
   private cep: string;
-  //TODO Senão encontrar finalidade, apagamos
-  private isActive: boolean;
   private createdAt: Date;
   private updatedAt: Date;
   private deletedAt: Date;
@@ -27,10 +25,36 @@ export class AddressEntity {
     this.number = input.number;
     this.complement = input.complement;
     this.cep = input.cep;
-    this.isActive = true;
     this.createdAt = new Date();
 
     return this;
+  }
+
+  delete() {
+    this.deletedAt = new Date();
+    return this;
+  }
+
+  exists(): boolean {
+    return !!this.id;
+  }
+
+  existsOrFail() {
+    if (!this.id) throw new Error('Address no exists');
+  }
+
+  GetAddress() {
+    return {
+      id: this.id,
+      cityId: this.cityId,
+      street: this.street,
+      number: this.number,
+      complement: this.complement,
+      cep: this.cep,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+      deletedAt: this.deletedAt,
+    };
   }
 }
 
@@ -42,8 +66,6 @@ export namespace AddressEntity {
     number: string;
     complement: string;
     cep: string;
-    //TODO Senão encontrar finalidade, apagamos
-    isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;

@@ -8,7 +8,7 @@ export class CreateAddressDto {
 
   @ApiProperty()
   @IsInt()
-  number: number;
+  number: string;
 
   @ApiProperty()
   @IsString()

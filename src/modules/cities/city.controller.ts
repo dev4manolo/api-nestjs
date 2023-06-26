@@ -16,7 +16,7 @@ import { Response } from 'express';
 import { CityService } from './city.service';
 import { CreateCityDto } from './dtos/createCity.dto';
 
-@Controller('citis')
+@Controller('cities')
 @ApiTags('cities')
 export class CityController {
   constructor(private readonly cityService: CityService) {}

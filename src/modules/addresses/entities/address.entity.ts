@@ -19,7 +19,7 @@ export class AddressEntity {
   street: string;
 
   @Column({ name: 'number', nullable: false })
-  number: number;
+  number: string;
 
   @Column({ name: 'complement' })
   complement: string;
